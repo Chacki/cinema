@@ -67,7 +67,7 @@ function MovieBanner(props) {
             {textTruncate(movie.description, 450)}
           </Typography>
           <Typography className={classes.director} variant="h4" color="inherit">
-            By: {movie.director}
+            Режиссёр: {movie.director}
           </Typography>
           <Typography
             className={classes.duration}
