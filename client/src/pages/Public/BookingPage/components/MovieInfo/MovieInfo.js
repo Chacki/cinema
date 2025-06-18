@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Grid, Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   movieInfos: {
-    background: 'rgba(57, 61, 67, 0.5)',
+    // background: 'rgba(57, 61, 67, 0.5)',
     position: 'relative',
     height: '100%'
   },

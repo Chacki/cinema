@@ -99,83 +99,103 @@ class AddShowtime extends Component {
 
     const rootClassName = classNames(classes.root, className);
     const title = this.props.selectedShowtime
-      ? 'Редактировать сеанс'
-      : 'Добавить сеанс';
+        ? 'Редактировать сеанс'
+        : 'Добавить сеанс';
     const submitButton = this.props.selectedShowtime
-      ? 'Обновить сеанс'
-      : 'Сохранить';
+        ? 'Обновить сеанс'
+        : 'Сохранить';
     const submitAction = this.props.selectedShowtime
-      ? () => this.onUpdateShowtime()
-      : () => this.onAddShowtime();
+        ? () => this.onUpdateShowtime()
+        : () => this.onAddShowtime();
 
     return (
-      <div className={rootClassName}>
-        <Typography variant="h4" className={classes.title}>
-          {title}
-        </Typography>
-        <form autoComplete="off" noValidate>
-          <div className={classes.field}>
-            <TextField
-              fullWidth
-              select
-              className={classes.textField}
-              helperText="Пожалуйста, выберите время"
-              label="Время"
-              margin="dense"
-              required
-              value={startAt}
-              variant="outlined"
-              onChange={event =>
-                this.handleFieldChange('startAt', event.target.value)
-              }>
-              {['18:00', '19:00', '20:00', '21:00', ' 22:00', '23:00'].map(
-                time => (
-                  <MenuItem key={`time-${time}`} value={time}>
-                    {time}
-                  </MenuItem>
-                )
-              )}
-            </TextField>
-          </div>
-          <div className={classes.field}>
-            <TextField
-              fullWidth
-              select
-              className={classes.textField}
-              label="Фильм"
-              margin="dense"
-              required
-              value={movieId}
-              variant="outlined"
-              onChange={event =>
-                this.handleFieldChange('movieId', event.target.value)
-              }>
-              {nowShowing.map(movie => (
-                <MenuItem key={movie._id} value={movie._id}>
-                  {movie.title}
-                </MenuItem>
-              ))}
-            </TextField>
+        <div className={rootClassName}>
+          <Typography variant="h4" className={classes.title}>
+            {title}
+          </Typography>
+          <form autoComplete="off" noValidate>
+            <div className={classes.field}>
+              <TextField
+                  fullWidth
+                  select
+                  className={classes.textField}
+                  helperText="Пожалуйста, выберите время"
+                  label="Время"
+                  margin="dense"
+                  required
+                  value={startAt}
+                  variant="outlined"
+                  onChange={event =>
+                      this.handleFieldChange('startAt', event.target.value)
+                  }>
+                {Array.from({ length: 24 }, (_, i) => {
+                  const hour = String(i).padStart(2, '0');
+                  return `${hour}:00`;
+                }).map(time => (
+                    <MenuItem key={time} value={time}>
+                      {time}
+                    </MenuItem>
+                ))}
+              </TextField>
+            </div>
+            <div className={classes.field}>
+              <TextField
+                  fullWidth
+                  select
+                  label="Фильм"
+                  margin="dense"
+                  required
+                  value={movieId}
+                  variant="outlined"
+                  onChange={event =>
+                      this.handleFieldChange('movieId', event.target.value)
+                  }
+                  SelectProps={{
+                    MenuProps: {
+                      PaperProps: {
+                        style: {
+                          maxHeight: 48 * 8 + 8,
+                        }
+                      }
+                    }
+                  }}
+              >
+                {nowShowing.map(movie => (
+                    <MenuItem key={movie._id} value={movie._id}>
+                      {movie.title}
+                    </MenuItem>
+                ))}
+              </TextField>
 
-            <TextField
-              fullWidth
-              select
-              className={classes.textField}
-              label="Кинотеатр"
-              margin="dense"
-              required
-              value={cinemaId}
-              variant="outlined"
-              onChange={event =>
-                this.handleFieldChange('cinemaId', event.target.value)
-              }>
-              {cinemas.map(cinema => (
-                <MenuItem key={cinema._id} value={cinema._id}>
-                  {cinema.name}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
+              <TextField
+                  fullWidth
+                  select
+                  className={classes.textField}
+                  label="Кинотеатр"
+                  margin="dense"
+                  required
+                  value={cinemaId}
+                  variant="outlined"
+                  onChange={event =>
+                      this.handleFieldChange('cinemaId', event.target.value)
+                  }
+                  SelectProps={{
+                    MenuProps: {
+                      PaperProps: {
+                        style: {
+                          maxHeight: 48 * 8 + 8,
+                        }
+                      }
+                    }
+                  }}
+              >
+                {cinemas.map(cinema => (
+                    <MenuItem key={cinema._id} value={cinema._id}>
+                      {cinema.name}
+                    </MenuItem>
+                ))}
+              </TextField>
+            </div>
 
           <div className={classes.field}>
             <MuiPickersUtilsProvider utils={MomentUtils}>

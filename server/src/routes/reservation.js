@@ -92,7 +92,7 @@ router.post('/reservations', auth.simple, async (req, res) => {
     if (adminEmails.length) {
       await sendEMail({
         // eslint-disable-next-line node/no-unsupported-features/es-syntax
-        ...mailBase,
+        // ...mailBase,
         to: adminEmails.join(','),
         subject: `Новая бронь #${reservation._id}`,
       });
